@@ -10,8 +10,16 @@ import LanguagesChips from "./components/LanguagesChips"
 
 export default function AssemblyEndgame() {      
     const [currentWord, setCurrentWord] = useState("react") 
-    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    const [guessedLetters, setGuessedLetters] = useState([])
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"    
 
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevLetters => 
+            prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]
+        )
+    }   
+
+    console.log(guessedLetters)
     const languagesElements = languages.map(lang => (
         <LanguagesChips
             key={nanoid()}
@@ -28,7 +36,11 @@ export default function AssemblyEndgame() {
     ))
 
     const keyboard = alphabet.split("").map(letter => (
-        <button key={nanoid()}>{letter.toUpperCase()}</button>
+        <button 
+            key={nanoid()} 
+            onClick={() => addGuessedLetter(letter)}>
+                {letter.toUpperCase()}
+        </button>
     ))
 
     return (
