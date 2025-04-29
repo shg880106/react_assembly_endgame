@@ -1,14 +1,12 @@
 
 import './App.css'
+import Header from './components/Header'
 
-function App() {
-  
+export default function AssemblyEndgame() {  
 
   return (
-    <>
-      
-    </>
+    <main>
+        <Header />
+    </main>
   )
 }
-
-export default App
