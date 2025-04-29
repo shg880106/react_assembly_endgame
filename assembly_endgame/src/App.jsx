@@ -9,7 +9,8 @@ import LanguagesChips from "./components/LanguagesChips"
 
 
 export default function AssemblyEndgame() {      
-    
+    const [currentWord, setCurrentWord] = useState("react") 
+
     const languagesElements = languages.map(lang => (
         <LanguagesChips
             key={nanoid()}
@@ -21,12 +22,20 @@ export default function AssemblyEndgame() {
         />
     ))
 
+    const letters = currentWord.split("").map(letter => (
+        <span key={nanoid()}>{letter.toUpperCase()}</span>
+    ))
+
+
     return (
         <main>
             <Header />
             <GameStatus />        
             <section className="languages-chips">
                 { languagesElements }
+            </section>
+            <section className="word">
+                { letters }
             </section>
         </main>
     )

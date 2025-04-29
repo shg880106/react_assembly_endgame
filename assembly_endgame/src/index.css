@@ -54,9 +54,27 @@ header>p {
   gap: 1.5px;
   justify-content: center;
   max-width: 350px;
+  margin-bottom: 36px;
 }
 
 .languages-chips>span {
   border-radius: 3px;
   padding: 4.5px;
+}
+
+.word {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.word>span {
+  background-color: #323232;
+  width: 40px;
+  height: 40px;
+  border-bottom: 1px solid #F9F4DA;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
