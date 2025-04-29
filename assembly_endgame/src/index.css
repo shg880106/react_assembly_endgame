@@ -47,3 +47,16 @@ header>p {
 .game-status>p {
   margin: 5px;
 }
+
+.languages-chips{
+  display: flex;
+  flex-wrap: wrap;    
+  gap: 1.5px;
+  justify-content: center;
+  max-width: 350px;
+}
+
+.languages-chips>span {
+  border-radius: 3px;
+  padding: 4.5px;
+}
