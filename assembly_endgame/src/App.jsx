@@ -18,7 +18,7 @@ export default function AssemblyEndgame() {
         //agregar la letra seleccionada por el usuario
         setGuessedLetters(prevLetters => 
             prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]
-        )        
+        )            
     }   
 
     const languagesElements = languages.map(lang => (
@@ -32,8 +32,10 @@ export default function AssemblyEndgame() {
         />
     ))
 
-    const letters = currentWord.split("").map(letter => (
-        <span key={nanoid()}>{letter.toUpperCase()}</span>
+    const lettersElements = currentWord.split("").map(letter => (
+        <span key={nanoid()}>
+            {guessedLetters.includes(letter) ? letter.toUpperCase() : ""}
+        </span>
     ))
 
     const keyboard = alphabet.split("").map(letter => {
@@ -44,8 +46,6 @@ export default function AssemblyEndgame() {
             correct: isCorrect,
             wrong: isWrong
         })
-
-        console.log(className)
 
         return (
             <button 
@@ -66,7 +66,7 @@ export default function AssemblyEndgame() {
                 { languagesElements }
             </section>
             <section className="word">
-                { letters }
+                { lettersElements }
             </section>
             <section className="keyboard">
                 { keyboard }
