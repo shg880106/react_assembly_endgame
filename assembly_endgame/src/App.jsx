@@ -4,7 +4,6 @@ import { languages } from "./assets/languages"
 import { nanoid } from 'nanoid'
 import { clsx } from 'clsx';
 import './App.css'
-import GameStatus from './components/GameStatus'
 import Header from './components/Header'
 
 
@@ -20,6 +19,10 @@ export default function AssemblyEndgame() {
     const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
     const isGameLost = wrongGuessCount >= languages.length - 1
     const isGameOver = isGameWon || isGameLost
+    const classNameGameStatus = clsx("game-status", {
+        won: isGameWon,
+        lost: isGameLost
+    }) 
 
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"    
@@ -79,7 +82,10 @@ export default function AssemblyEndgame() {
     return (
         <main>
             <Header />
-            <GameStatus />        
+            <section className={classNameGameStatus}>
+                {(isGameOver && isGameWon) ? <h2>You win!</h2> : (isGameOver && isGameLost) ? <h2>Game over!</h2> : ""}
+                {(isGameOver && isGameWon) ? <p>Well done! 🎉</p> : (isGameOver && isGameLost) ? <p>You lose! Better start learning Assembly 😭</p> : ""}
+            </section>      
             <section className="languages-chips">
                 { languagesElements }
             </section>
