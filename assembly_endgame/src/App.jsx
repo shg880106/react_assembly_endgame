@@ -6,7 +6,6 @@ import { clsx } from 'clsx';
 import './App.css'
 import GameStatus from './components/GameStatus'
 import Header from './components/Header'
-import LanguagesChips from "./components/LanguagesChips"
 
 
 export default function AssemblyEndgame() {      
@@ -19,8 +18,6 @@ export default function AssemblyEndgame() {
         !currentWord.includes(letter)
     ).length
 
-    console.log(wrongGuessCount)
-
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"    
 
@@ -31,16 +28,23 @@ export default function AssemblyEndgame() {
         )            
     }   
 
-    const languagesElements = languages.map(lang => (
-        <LanguagesChips
-            key={nanoid()}
-            style={{
-                backgroundColor: lang.backgroundColor,
-                color: lang.color,
-            }}
-            value={lang.name}
-        />
-    ))
+    const languagesElements = languages.map((lang, index) => {
+        const isLanguageLost = index < wrongGuessCount        
+        const styles = {
+            backgroundColor: lang.backgroundColor,
+            color: lang.color
+        }
+        const className = clsx("chip", isLanguageLost && "lost")
+        return (
+            <span
+                className={className}
+                style={styles}
+                key={index}
+            >
+                {lang.name}
+            </span>
+        )
+    })
 
     const lettersElements = currentWord.split("").map(letter => (
         <span key={nanoid()}>
