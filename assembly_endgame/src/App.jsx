@@ -16,13 +16,16 @@ export default function AssemblyEndgame() {
     // Derived values
     const wrongGuessCount = guessedLetters.filter(letter => 
         !currentWord.includes(letter)
-    ).length
+    ).length    
+    const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
+    const isGameLost = wrongGuessCount >= languages.length - 1
+    const isGameOver = isGameWon || isGameLost
 
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"    
 
     function addGuessedLetter(letter) {            
-        //agregar la letra seleccionada por el usuario
+        // add the letter selected by the user
         setGuessedLetters(prevLetters => 
             prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]
         )            
@@ -35,6 +38,7 @@ export default function AssemblyEndgame() {
             color: lang.color
         }
         const className = clsx("chip", isLanguageLost && "lost")
+        
         return (
             <span
                 className={className}
@@ -85,7 +89,7 @@ export default function AssemblyEndgame() {
             <section className="keyboard">
                 { keyboard }
             </section>
-            <button className="new-game">New Game</button>
+            {isGameOver && <button className="new-game">New Game</button>}
         </main>
     )
 }
