@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { languages } from "./assets/languages"
 import { nanoid } from 'nanoid'
+import { clsx } from 'clsx';
 import './App.css'
 import GameStatus from './components/GameStatus'
 import Header from './components/Header'
@@ -13,13 +14,13 @@ export default function AssemblyEndgame() {
     const [guessedLetters, setGuessedLetters] = useState([])
     const alphabet = "abcdefghijklmnopqrstuvwxyz"    
 
-    function addGuessedLetter(letter) {
+    function addGuessedLetter(letter) {            
+        //agregar la letra seleccionada por el usuario
         setGuessedLetters(prevLetters => 
             prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]
-        )
+        )        
     }   
 
-    console.log(guessedLetters)
     const languagesElements = languages.map(lang => (
         <LanguagesChips
             key={nanoid()}
@@ -35,13 +36,27 @@ export default function AssemblyEndgame() {
         <span key={nanoid()}>{letter.toUpperCase()}</span>
     ))
 
-    const keyboard = alphabet.split("").map(letter => (
-        <button 
-            key={nanoid()} 
-            onClick={() => addGuessedLetter(letter)}>
+    const keyboard = alphabet.split("").map(letter => {
+        const isGuessed = guessedLetters.includes(letter)
+        const isCorrect = isGuessed && currentWord.includes(letter)
+        const isWrong = isGuessed && !currentWord.includes(letter)
+        const className = clsx({
+            correct: isCorrect,
+            wrong: isWrong
+        })
+
+        console.log(className)
+
+        return (
+            <button 
+                key={nanoid()} 
+                onClick={() => addGuessedLetter(letter)}
+                className={className}
+            >
                 {letter.toUpperCase()}
-        </button>
-    ))
+            </button>
+        )
+    })
 
     return (
         <main>
