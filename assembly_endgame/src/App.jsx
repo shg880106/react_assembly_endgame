@@ -86,7 +86,11 @@ export default function AssemblyEndgame() {
 
     function renderGameStatus() {
         if (!isGameOver && isLastGuessIncorrect) {
-            return <p className="farewell-message">Bye!</p>
+            return (
+                <p className="farewell-message">
+                    {getFarewellText(languages[wrongGuessCount - 1].name)}
+                </p>
+            )
         }
 
         if (isGameWon) {
