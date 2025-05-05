@@ -4,5 +4,8 @@
     "nanoid": "^5.1.5",
     "react-confetti": "^6.4.0",
     "react-rain-animation": "^1.0.4"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
