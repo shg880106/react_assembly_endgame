@@ -12,7 +12,7 @@ export default function AssemblyEndgame() {
     // State values
     const [currentWord, setCurrentWord] = useState(() => randomWord()) 
     const [guessedLetters, setGuessedLetters] = useState([])
-    
+
     // Derived values
     const numGuessesLeft = languages.length - 1
     const wrongGuessCount = guessedLetters.filter(letter => 
@@ -53,11 +53,19 @@ export default function AssemblyEndgame() {
         )
     })
 
-    const lettersElements = currentWord.split("").map(letter => (
-        <span key={nanoid()}>
-            {guessedLetters.includes(letter) ? letter.toUpperCase() : ""}
-        </span>
-    ))
+    const lettersElements = currentWord.split("").map((letter, index) => {
+        const shouldRevealLetter = isGameLost || guessedLetters.includes(letter)
+        const letterClassName = clsx(
+            isGameLost && !guessedLetters.includes(letter) && "missed-letter"
+        )
+        return (
+            <span key={index} className={letterClassName}>
+                {shouldRevealLetter ? letter.toUpperCase() : ""}
+            </span>
+        )
+    })
+
+    console.log(currentWord)
 
     const keyboard = alphabet.split("").map(letter => {
         const isGuessed = guessedLetters.includes(letter)
