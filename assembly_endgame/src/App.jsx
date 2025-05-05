@@ -12,8 +12,7 @@ export default function AssemblyEndgame() {
     // State values
     const [currentWord, setCurrentWord] = useState(() => randomWord()) 
     const [guessedLetters, setGuessedLetters] = useState([])
-
-    console.log(currentWord)
+    
     // Derived values
     const numGuessesLeft = languages.length - 1
     const wrongGuessCount = guessedLetters.filter(letter => 
@@ -116,6 +115,11 @@ export default function AssemblyEndgame() {
         return null
     }
 
+    function startNewGame() {
+        setCurrentWord(randomWord())
+        setGuessedLetters([])
+    }
+
     return (
         <main>
             <Header />
@@ -144,7 +148,7 @@ export default function AssemblyEndgame() {
             <section className="keyboard">
                 { keyboard }
             </section>
-            {isGameOver && <button className="new-game">New Game</button>}
+            {isGameOver && <button className="new-game" onClick={startNewGame}>New Game</button>}
         </main>
     )
 }
