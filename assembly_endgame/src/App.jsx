@@ -7,6 +7,8 @@ import { clsx } from 'clsx';
 import './App.css'
 import Header from './components/Header'
 import Confetti from "react-confetti"
+import ReactRain from 'react-rain-animation'
+import 'react-rain-animation/lib/style.css'
 
 
 export default function AssemblyEndgame() {      
@@ -132,6 +134,7 @@ export default function AssemblyEndgame() {
     return (
         <main>
             {isGameWon && <Confetti recycle={false} numberOfPieces={1000} />}
+            {isGameLost && <ReactRain numDrops={500} />}
             <Header />
             <section aria-live="polite" role="status" className={classNameGameStatus}>
                 {renderGameStatus()}
