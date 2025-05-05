@@ -1,6 +1,7 @@
 
 import { useState } from "react"
 import { languages } from "./assets/languages"
+import getFarewellText   from './assets/utils'
 import { nanoid } from 'nanoid'
 import { clsx } from 'clsx';
 import './App.css'
@@ -18,11 +19,9 @@ export default function AssemblyEndgame() {
     ).length    
     const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
     const isGameLost = wrongGuessCount >= languages.length - 1
-    const isGameOver = isGameWon || isGameLost
-    const classNameGameStatus = clsx("game-status", {
-        won: isGameWon,
-        lost: isGameLost
-    }) 
+    const isGameOver = isGameWon || isGameLost    
+    const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
+    const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
 
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"    
@@ -40,8 +39,8 @@ export default function AssemblyEndgame() {
             backgroundColor: lang.backgroundColor,
             color: lang.color
         }
-        const className = clsx("chip", isLanguageLost && "lost")
-        
+        const className = clsx("chip", isLanguageLost && "lost")        
+
         return (
             <span
                 className={className}
@@ -79,12 +78,43 @@ export default function AssemblyEndgame() {
         )
     })
 
+    const classNameGameStatus = clsx("game-status", {
+        won: isGameWon,
+        lost: isGameLost,
+        farewell: !isGameOver && isLastGuessIncorrect
+    }) 
+
+    function renderGameStatus() {
+        if (!isGameOver && isLastGuessIncorrect) {
+            return <p className="farewell-message">Bye!</p>
+        }
+
+        if (isGameWon) {
+            return (
+                <>
+                    <h2>You win!</h2>
+                    <p>Well done! 🎉</p>
+                </>
+            )
+        } 
+        
+        if (isGameLost) {
+            return (
+                <>
+                    <h2>Game over!</h2>
+                    <p>You lose! Better start learning Assembly 😭</p>
+                </>
+            )
+        }
+
+        return null
+    }
+
     return (
         <main>
             <Header />
             <section className={classNameGameStatus}>
-                {(isGameOver && isGameWon) ? <h2>You win!</h2> : (isGameOver && isGameLost) ? <h2>Game over!</h2> : ""}
-                {(isGameOver && isGameWon) ? <p>Well done! 🎉</p> : (isGameOver && isGameLost) ? <p>You lose! Better start learning Assembly 😭</p> : ""}
+                {renderGameStatus()}
             </section>      
             <section className="languages-chips">
                 { languagesElements }
