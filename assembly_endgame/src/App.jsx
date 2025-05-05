@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid'
 import { clsx } from 'clsx';
 import './App.css'
 import Header from './components/Header'
+import Confetti from "react-confetti"
 
 
 export default function AssemblyEndgame() {      
@@ -64,8 +65,6 @@ export default function AssemblyEndgame() {
             </span>
         )
     })
-
-    console.log(currentWord)
 
     const keyboard = alphabet.split("").map(letter => {
         const isGuessed = guessedLetters.includes(letter)
@@ -130,6 +129,7 @@ export default function AssemblyEndgame() {
 
     return (
         <main>
+            {isGameWon && <Confetti recycle={false} numberOfPieces={1000} />}
             <Header />
             <section aria-live="polite" role="status" className={classNameGameStatus}>
                 {renderGameStatus()}
