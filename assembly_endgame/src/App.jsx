@@ -23,10 +23,11 @@ export default function AssemblyEndgame() {
     const isGameLost = wrongGuessCount >= numGuessesLeft
     const isGameOver = isGameWon || isGameLost    
     const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
-    const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
+    const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)    
+    const remainingGuesses = 8 - wrongGuessCount
 
     // Static values
-    const alphabet = "abcdefghijklmnopqrstuvwxyz"    
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"     
 
     function addGuessedLetter(letter) {            
         // add the letter selected by the user
@@ -59,6 +60,7 @@ export default function AssemblyEndgame() {
         const letterClassName = clsx(
             isGameLost && !guessedLetters.includes(letter) && "missed-letter"
         )
+
         return (
             <span key={index} className={letterClassName}>
                 {shouldRevealLetter ? letter.toUpperCase() : ""}
@@ -133,7 +135,10 @@ export default function AssemblyEndgame() {
             <Header />
             <section aria-live="polite" role="status" className={classNameGameStatus}>
                 {renderGameStatus()}
-            </section>      
+            </section>  
+            <section className="remaining_guesses">
+                <p>You have {remainingGuesses} attempts left.</p>
+            </section>    
             <section className="languages-chips">
                 { languagesElements }
             </section>

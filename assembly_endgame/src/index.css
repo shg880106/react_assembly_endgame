@@ -183,3 +183,8 @@ button.new-game {
   white-space: nowrap;
   border: 0;
 }
+
+.remaining_guesses {
+  color: #BA2A2A;
+  font-size: 20px;
+}
