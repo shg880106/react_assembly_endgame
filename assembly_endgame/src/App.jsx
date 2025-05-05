@@ -72,6 +72,9 @@ export default function AssemblyEndgame() {
                 key={nanoid()} 
                 onClick={() => addGuessedLetter(letter)}
                 className={className}
+                disabled={isGameOver}
+                aria-disabled={guessedLetters.includes(letter)}
+                aria-label={`Letter ${letter}`}
             >
                 {letter.toUpperCase()}
             </button>
@@ -92,7 +95,6 @@ export default function AssemblyEndgame() {
                 </p>
             )
         }
-
         if (isGameWon) {
             return (
                 <>
@@ -100,8 +102,7 @@ export default function AssemblyEndgame() {
                     <p>Well done! 🎉</p>
                 </>
             )
-        } 
-        
+        }         
         if (isGameLost) {
             return (
                 <>
@@ -110,7 +111,6 @@ export default function AssemblyEndgame() {
                 </>
             )
         }
-
         return null
     }
 
