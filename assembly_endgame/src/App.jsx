@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 import { languages } from "./assets/languages"
-import getFarewellText   from './assets/utils'
+import { getFarewellText, randomWord }  from './assets/utils'
 import { nanoid } from 'nanoid'
 import { clsx } from 'clsx';
 import './App.css'
@@ -10,9 +10,10 @@ import Header from './components/Header'
 
 export default function AssemblyEndgame() {      
     // State values
-    const [currentWord, setCurrentWord] = useState("react") 
+    const [currentWord, setCurrentWord] = useState(() => randomWord()) 
     const [guessedLetters, setGuessedLetters] = useState([])
 
+    console.log(currentWord)
     // Derived values
     const numGuessesLeft = languages.length - 1
     const wrongGuessCount = guessedLetters.filter(letter => 
