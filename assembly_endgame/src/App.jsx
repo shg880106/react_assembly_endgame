@@ -117,7 +117,7 @@ export default function AssemblyEndgame() {
     return (
         <main>
             <Header />
-            <section className={classNameGameStatus}>
+            <section aria-live="polite" role="status" className={classNameGameStatus}>
                 {renderGameStatus()}
             </section>      
             <section className="languages-chips">
@@ -125,6 +125,11 @@ export default function AssemblyEndgame() {
             </section>
             <section className="word">
                 { lettersElements }
+            </section>
+            <section className="sr-only" aria-live="polite" role="status">
+                <p>Current word: {currentWord.split("").map(letter => 
+                    guessedLetters.includes(letter) ? letter + "." : "blank.")
+                    .join(" ")}</p>            
             </section>
             <section className="keyboard">
                 { keyboard }
